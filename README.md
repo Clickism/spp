@@ -23,6 +23,5 @@ main:
     li t1, 400
     mul t0, t0, t1
 ```
-It might be important to compile and remove the .spp files before submitting.
 
 **The software is provided "as is" and there is no guarantee that it will work as intended and any possible problems caused by this is your responsibility. Use at your own risk!**
