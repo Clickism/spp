@@ -61,10 +61,7 @@ def main():
         print("Usage: python spp.py <input_file> [output_file]")
         sys.exit(1)
     input_file = sys.argv[1]
-    if not input_file.endswith(".spp"):
-        print("Input file does not end with .spp")
-        sys.exit(1)
-    output_file = sys.argv[2] if len(sys.argv) > 2 else input_file.rstrip('.spp') + '.s'
+    output_file = sys.argv[2] if len(sys.argv) > 2 else input_file.rstrip('.sp') + '.s'
     output_lines = parse_spp_file(input_file)
     with open(output_file, 'w') as out_file:
         for line in output_lines:
