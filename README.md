@@ -11,14 +11,14 @@ Example .spp file:
 ```asm
 .equ MAGIC_NUMBER = 0x100
 .equ TEST = 400
-_start:
+main:
     li t0, MAGIC_NUMBER
     li t1, TEST
     mul t0, t0, t1
 ```
 It will compile into:
 ```asm
-_start:
+main:
     li t0, 0x100
     li t1, 400
     mul t0, t0, t1
