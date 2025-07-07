@@ -3,11 +3,11 @@
 
 I found it a bit annoying that we cannot use constants (.equ directives) to make our assembly more readable/debuggable. So I created a python script and a *pseudo*-language called **spp** (s++) that allows .equ directives and compiles into **.s** files.
 
-To use this, simply create a **.spp** file with .equ directives and run the command
-`python3 spp.py yourprogram.spp`
+To use this, simply create a **.spp** or **.spp.s** (so that IDEs recognize the file as asembly) file with .equ directives and run the command
+`python3 spp.py yourprogram.spp.s`
 which will output a file `yourprogram.s` with all the constants replaced.
 
-Example .spp file:
+Example `.spp`/`.spp.s` file:
 ```asm
 .equ MAGIC_NUMBER = 0x100
 .equ TEST = 400
