@@ -1,3 +1,6 @@
+# SPP
+**This is a tiny tool made for assemblers that don't support .equ directives.**
+
 I found it a bit annoying that we cannot use constants (.equ directives) to make our assembly more readable/debuggable. So I created a python script and a *pseudo*-language called **spp** (s++) that allows .equ directives and compiles into **.s** files.
 
 To use this, simply create a **.spp** file with .equ directives and run the command
