@@ -28,7 +28,7 @@ def parse_spp_file(input_file: str) -> list[str]:
     output_lines = []
     for line in lines:
         if line.startswith('.equ'):
-            parts = line.split()
+            parts = line.strip().split(maxsplit=3)
             if len(parts) == 4:
                 name = parts[1]
                 value = parts[3]
@@ -38,6 +38,8 @@ def parse_spp_file(input_file: str) -> list[str]:
                         sys.exit(1)
                     else:
                         value = value.replace(constant_name, constant_value)
+                if value.startswith('(') and value.endswith(')'):
+                    value = hex(eval(value[1:-1], {'__builtins__': None}))
                 constants.append((name, value))
                 print(f"Added constant: {name} = {value}")
             else:
