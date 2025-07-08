@@ -1,7 +1,7 @@
 # SPP
 **This is a tiny tool made for assemblers that don't support .equ directives.**
 
-I found it a bit annoying that we cannot use constants (.equ directives) to make our assembly more readable/debuggable. 
+I found it a bit annoying that we cannot use constants (.equ directives) with certain assemblers to make our assembly more readable/maintainable. 
 So I created a python script and a preprocessor called **spp** (s++) that allows .equ directives and compiles into **.s** assembly files.
 
 ### Usage
