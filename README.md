@@ -8,7 +8,7 @@ So I created a python script and a preprocessor called **spp** (s++) that allows
 
 To use this, simply create a **.spp** or **.spp.s** (so that IDEs can recognize the file as assembly) file with .equ directives and run the command
 `python3 spp.py yourprogram.spp.s`
-which will output a file `yourprogram.s` with all the constants replaced.
+which will output a file `yourprogram.s` with all the constants replaced with their values.
 
 Example `.spp`/`.spp.s` file:
 ```asm
@@ -41,6 +41,22 @@ main:
 .equ BASE_ADDRESS = 0x0000
 .equ DATA_AGE = (BASE_ADDRESS + 4)
 .equ DATA_COUNT = (BASE_ADDRESS + 8)
+```
+
+### Useful Example
+You can even use constants for memory offsets:
+```asm
+.equ DATA_ADDRESS = 0x0000
+.equ OFFSET_AGE = 4
+.equ OFFSET_COUNT = 8
+.equ OFFSET_YEAR = 12
+.equ OFFSET_MONTH = 16
+main:
+    li t0, DATA_ADDRESS
+    lw t1, OFFSET_AGE(t0)
+    lw t2, OFFSET_COUNT(t0)
+    lw t3, OFFSET_YEAR(t0)
+    lw t4, OFFSET_MONTH(t0)
 ```
 **__Note:__** Evaluation is only supported for numbers. After evaluation, the result will be converted to **hexadecimal**.
 
