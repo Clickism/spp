@@ -22,12 +22,15 @@
 import os
 import sys
 
+def sort_constants(constants):
+    return sorted(constants, key=lambda c: -len(c[0])) # sort by length of constant name, longest first
 
 def parse_spp_file(input_file: str) -> list[str]:
     file = open(input_file, 'r')
     lines = file.readlines()
     constants = []
     output_lines = []
+    is_sorted = False
     for line in lines:
         if line.startswith('.equ'):
             line = line.split('#', 1)[0]  # Remove comments
@@ -35,7 +38,7 @@ def parse_spp_file(input_file: str) -> list[str]:
             if len(parts) == 4:
                 name = parts[1]
                 value = parts[3]
-                for (constant_name, constant_value) in constants:
+                for (constant_name, constant_value) in sort_constants(constants):
                     if constant_name == name:
                         print(f"Error: Constant {name} already defined as {constant_value}")
                         sys.exit(1)
@@ -45,11 +48,14 @@ def parse_spp_file(input_file: str) -> list[str]:
                     value = str(hex(eval(value[1:-1], {'__builtins__': None}))).upper()
                     value = value.replace('0X', '0x')  # make x lowercase
                 constants.append((name, value))
+                is_sorted = False # resort after adding a new constant
                 print(f"Added constant: {name} = {value}")
             else:
                 print(f"Error: Invalid .equ constant declaration: {line.strip()}")
                 sys.exit(1)
         else:
+            if not is_sorted:
+                constants = sort_constants(constants)
             if '#' in line:
                 code, comment = line.split('#', 1)
                 for (name, value) in constants:
