@@ -19,8 +19,9 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import sys
 import os
+import sys
+
 
 def parse_spp_file(input_file: str) -> list[str]:
     file = open(input_file, 'r')
@@ -29,6 +30,7 @@ def parse_spp_file(input_file: str) -> list[str]:
     output_lines = []
     for line in lines:
         if line.startswith('.equ'):
+            line = line.split('#', 1)[0]  # Remove comments
             parts = line.strip().split(maxsplit=3)
             if len(parts) == 4:
                 name = parts[1]
@@ -41,7 +43,7 @@ def parse_spp_file(input_file: str) -> list[str]:
                         value = value.replace(constant_name, constant_value)
                 if value.startswith('(') and value.endswith(')'):
                     value = str(hex(eval(value[1:-1], {'__builtins__': None}))).upper()
-                    value = value.replace('0X', '0x') # make x lowercase
+                    value = value.replace('0X', '0x')  # make x lowercase
                 constants.append((name, value))
                 print(f"Added constant: {name} = {value}")
             else:
@@ -60,6 +62,7 @@ def parse_spp_file(input_file: str) -> list[str]:
 
     return output_lines
 
+
 def get_output_file(input_file: str) -> str:
     if input_file.endswith('.spp'):
         return input_file[:-4] + '.s'
@@ -68,6 +71,7 @@ def get_output_file(input_file: str) -> str:
     else:
         file, ext = os.path.splitext(input_file)
         return file + '.out.s'
+
 
 def main():
     if len(sys.argv) < 2:
@@ -81,6 +85,7 @@ def main():
             out_file.write(line)
     print(f"Output written to {output_file}")
     pass
+
 
 version = "0.1"
 
